@@ -1,0 +1,36 @@
+# Arquivos e pastas gerados pelo Composer
+/vendor/
+composer.lock
+
+# Arquivos de log e cache
+/storage/framework/
+/storage/logs/
+/bootstrap/cache/
+
+# Arquivo de ambiente (Contém senhas e chaves de API!)
+# Não comente esta linha a menos que saiba o que está fazendo.
+.env
+.env.backup
+.env.production
+
+# O link simbólico do storage
+/public/storage
+
+# Arquivos de teste e cobertura de código
+.phpunit.result.cache
+coverage/
+
+# Arquivos de ferramentas de desenvolvimento e IDEs
+.idea/
+.vscode/
+.php-cs-fixer.cache
+Homestead.yaml
+Homestead.json
+/.vagrant
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Chaves de criptografia do Laravel
+/storage/*.key
