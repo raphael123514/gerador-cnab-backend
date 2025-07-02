@@ -14,14 +14,18 @@ class AuthResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $token = $this->resource;
+        
         return [
-            'token' => $this['token'],
-            'user' => [
-                'id' => $this['user']->id,
-                'name' => $this['user']->name,
-                'email' => $this['user']->email,
-                'role' => $this['user']->getRoleNames(),
-            ],
+            'access_token' => $token,
+            'token_type'   => 'bearer',
+            'expires_in'   => auth('api')->factory()->getTTL() * 60,
+            'user'         =>[
+                'id' => auth('api')->user()->id,
+                'name' => auth('api')->user()->name,
+                'email' => auth('api')->user()->email,
+                'role' => auth('api')->user()->getRoleNames(),
+            ]
         ];
     }
 }

@@ -7,18 +7,14 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginAction
 {
-    public function execute(string $email, string $password): ?array
+    public function execute(string $email, string $password): string|bool
     {
-        $user = User::where('email', $email)->first();
-        if (! $user || ! Hash::check($password, $user->password)) {
-            return null;
-        }
-        $tokenResult = $user->createToken('api-token', [], now()->addHour());
-        $token = $tokenResult->plainTextToken;
+        $credentials = ['email' => $email, 'password' => $password];
 
-        return [
-            'token' => $token,
-            'user' => $user,
-        ];
+        if (! $token = auth('api')->attempt($credentials)) {
+            return false;
+        }
+
+        return $token;
     }
 }

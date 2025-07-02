@@ -23,7 +23,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth()->user()->tokens()->delete();
+        auth()->logout();
         return response()->json(['message' => 'Desconectado com sucesso']);
     }
 }
