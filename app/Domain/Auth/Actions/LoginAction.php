@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Auth;
+namespace App\Domain\Auth\Actions;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Actions\User;
+namespace App\Domain\User\Actions;
 
-use App\Models\User;
+use App\Domain\User\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ListUsersAction

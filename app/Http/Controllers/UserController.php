@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\ListUserRequest;
-use App\Http\Resources\UserResource;
-use App\Actions\User\CreateUserAction;
-use App\Actions\User\ListUsersAction;
+use App\Domain\User\Requests\StoreUserRequest;
+use App\Domain\User\Requests\ListUserRequest;
+use App\Domain\User\Resources\UserResource;
+use App\Domain\User\Actions\CreateUserAction;
+use App\Domain\User\Actions\ListUsersAction;
 
 class UserController extends Controller
 {

@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Domain\Cnab\Models\CNABProcessing;
+use App\Enums\ProfileEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,7 +49,17 @@ class User extends Authenticatable implements JWTSubject
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'profile' => ProfileEnum::class,
         ];
+    }
+
+    /**
+     * Define o relacionamento onde um Usuário pode ter muitos processamentos.
+     * Isso é necessário para listar o "Usuário solicitante".
+     */
+    public function cnabProcessings()
+    {
+        return $this->hasMany(CNABProcessing::class);
     }
 
     /**

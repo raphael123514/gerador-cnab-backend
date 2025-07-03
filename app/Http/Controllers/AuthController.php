@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Auth\LoginAction;
-use App\Http\Requests\LoginRequest;
-use App\Http\Resources\AuthResource;
+use App\Domain\Auth\Actions\LoginAction;
+use App\Domain\Auth\Requests\LoginRequest;
+use App\Domain\Auth\Resources\AuthResource;
 
 class AuthController extends Controller
 {
