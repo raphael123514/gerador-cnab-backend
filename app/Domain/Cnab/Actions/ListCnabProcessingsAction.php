@@ -15,18 +15,20 @@ class ListCnabProcessingsAction
      */
     public function execute(array $data): LengthAwarePaginator
     {
+        $filters = $data['filters'] ?? [];
+
         $query = CNABProcessing::query()
             ->with('user:id,name');
 
-        $query->when($data['status'] ?? null, function ($q, $status) {
+        $query->when($filters['status'] ?? null, function ($q, $status) {
             $q->where('status', $status);
         });
 
-        $query->when($data['date_from'] ?? null, function ($q, $dateFrom) {
+        $query->when($filters['date_from'] ?? null, function ($q, $dateFrom) {
             $q->whereDate('created_at', '>=', $dateFrom);
         });
 
-        $query->when($data['date_to'] ?? null, function ($q, $dateTo) {
+        $query->when($filters['date_to'] ?? null, function ($q, $dateTo) {
             $q->whereDate('created_at', '<=', $dateTo);
         });
 
