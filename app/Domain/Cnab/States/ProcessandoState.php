@@ -8,7 +8,7 @@ use App\Domain\Cnab\Models\CNABProcessing;
 
 class ProcessandoState
 {
-     public function start(CNABProcessing $processing): void
+    public function start(CNABProcessing $processing): void
     {
         throw new InvalidStateException('O processamento já foi iniciado.');
     }

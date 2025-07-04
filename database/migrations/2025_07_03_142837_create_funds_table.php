@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('funds', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('cnpj'); 
-            $table->string('corporate_name'); // "Razão Social" 
-            $table->string('address_street'); // "Logradouro" 
-            $table->string('address_number'); // "Número" 
+            $table->string('cnpj');
+            $table->string('corporate_name'); // "Razão Social"
+            $table->string('address_street'); // "Logradouro"
+            $table->string('address_number'); // "Número"
             $table->timestamps();
         });
     }

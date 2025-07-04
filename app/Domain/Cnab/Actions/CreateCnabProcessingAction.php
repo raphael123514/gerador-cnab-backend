@@ -10,10 +10,9 @@ class CreateCnabProcessingAction
     /**
      * Cria um novo registro de processamento de CNAB.
      *
-     * @param User $user O usuário autenticado que está realizando o upload.
-     * @param array $data Dados validados da requisição.
-     * @param string $filePath O caminho onde o arquivo original foi salvo.
-     * @return CNABProcessing
+     * @param  User  $user  O usuário autenticado que está realizando o upload.
+     * @param  array  $data  Dados validados da requisição.
+     * @param  string  $filePath  O caminho onde o arquivo original foi salvo.
      */
     public function execute(User $user, array $data, string $filePath): CNABProcessing
     {
@@ -26,5 +25,3 @@ class CreateCnabProcessingAction
         ]);
     }
 }
-
-

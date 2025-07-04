@@ -8,8 +8,6 @@ class GetAllFundAction
 {
     /**
      * Retorna todos os fundos disponíveis.
-     *
-     * @return array
      */
     public function execute(): array
     {

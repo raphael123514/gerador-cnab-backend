@@ -13,8 +13,8 @@ class ListUsersAction
         $page = $data['page'] ?? null;
 
         return User::with('roles')->latest()->paginate(
-                perPage: $perPage,
-                page: $page
+            perPage: $perPage,
+            page: $page
         );
     }
 }

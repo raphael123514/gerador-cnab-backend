@@ -21,7 +21,7 @@ class CnabFormatter
     {
         return str_pad(mb_substr($value, 0, $length), $length, '0', STR_PAD_LEFT);
     }
-    
+
     /**
      * Formata um valor monetário.
      * Converte para centavos e preenche com zeros à esquerda.
@@ -29,6 +29,7 @@ class CnabFormatter
     public static function money(float $value, int $length): string
     {
         $inCents = (int) round($value * 100);
+
         return self::numeric($inCents, $length);
     }
 }

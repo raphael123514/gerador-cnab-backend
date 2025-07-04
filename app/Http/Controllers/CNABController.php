@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Cnab\Actions\ListCnabProcessingsAction;
 use App\Domain\Cnab\Actions\CreateCnabProcessingAction;
+use App\Domain\Cnab\Actions\ListCnabProcessingsAction;
 use App\Domain\Cnab\Jobs\ProcessCnabFile;
 use App\Domain\Cnab\Models\CNABProcessing;
 use App\Domain\Cnab\Requests\CNABImportRequest;
-use App\Domain\Cnab\Resources\CNABProcessingResource;
 use App\Domain\Cnab\Requests\CNABProcessingListRequest;
-use Illuminate\Http\Request;
+use App\Domain\Cnab\Resources\CNABProcessingResource;
 use Illuminate\Support\Facades\Storage;
 
 class CNABController extends Controller
 {
-     /**
+    /**
      * Lista todos os processamentos com filtros e paginação.
-     * Acessível por Admin e Usuário. 
+     * Acessível por Admin e Usuário.
      */
     public function index(CNABProcessingListRequest $request, ListCnabProcessingsAction $listCnabProcessingsAction)
     {
@@ -27,7 +26,7 @@ class CNABController extends Controller
 
     /**
      * Recebe o arquivo Excel e dispara o job de processamento.
-     * Acessível apenas por Admin. 
+     * Acessível apenas por Admin.
      */
     public function upload(CNABImportRequest $request, CreateCnabProcessingAction $createCnabProcessingAction)
     {
@@ -42,10 +41,10 @@ class CNABController extends Controller
         );
 
         ProcessCnabFile::dispatch($processing);
-        
+
         return response()->json([
             'message' => 'Arquivo recebido. Em breve o processamento será iniciado.',
-            'data' => new CNABProcessingResource($processing)
+            'data' => new CNABProcessingResource($processing),
         ], 202);
     }
 
@@ -62,7 +61,7 @@ class CNABController extends Controller
             $path = $processing->cnab_filepath;
         }
 
-        if (!$path || !Storage::exists($path)) {
+        if (! $path || ! Storage::exists($path)) {
             abort(404, 'Arquivo não encontrado.');
         }
 

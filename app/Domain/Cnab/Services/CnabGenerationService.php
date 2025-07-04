@@ -10,14 +10,18 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 class CnabGenerationService
 {
     private string $header;
+
     private array $bodyLines = [];
+
     private string $footer;
+
     private float $totalValue = 0.0;
 
     private const CODEBANK = '341';
-    private const AGENCY = '12345';
-    private const ACCOUNT = '987651';
 
+    private const AGENCY = '12345';
+
+    private const ACCOUNT = '987651';
 
     /**
      * Método principal que orquestra a geração do CNAB.
@@ -28,7 +32,7 @@ class CnabGenerationService
         $this->buildBody($excelRows);
         $this->buildFooter();
 
-        return $this->header . "\n" . implode("\n", $this->bodyLines) . "\n" . $this->footer;
+        return $this->header."\n".implode("\n", $this->bodyLines)."\n".$this->footer;
     }
 
     private function buildHeader(Fund $fund, string $sequence): void
@@ -38,8 +42,8 @@ class CnabGenerationService
         $street = CnabFormatter::alpha($fund->address_street, 10);
         $number = CnabFormatter::numeric($fund->address_number, 3);
         $sequence = CnabFormatter::numeric($sequence, 3);
-        
-        $this->header = $name . $cnpj . $street . $number . $sequence;
+
+        $this->header = $name.$cnpj.$street.$number.$sequence;
     }
 
     private function buildBody(Collection $excelRows): void
@@ -56,8 +60,8 @@ class CnabGenerationService
             $customer = CnabFormatter::alpha($row['cliente'], 22);
             $value = CnabFormatter::money($valorOriginal, 6);
             $date = Date::excelToDateTimeObject($row['data'])->format('Ymd');
-            
-            $this->bodyLines[] = $contract . $customer . $value . $date;
+
+            $this->bodyLines[] = $contract.$customer.$value.$date;
             $this->totalValue += $valorOriginal;
         }
     }
@@ -69,6 +73,6 @@ class CnabGenerationService
         $agency = CnabFormatter::numeric(self::AGENCY, 5);
         $account = CnabFormatter::numeric(self::ACCOUNT, 6);
 
-        $this->footer = $sum . $bank . $agency . $account;
+        $this->footer = $sum.$bank.$agency.$account;
     }
 }

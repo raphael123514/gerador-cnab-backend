@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\User\Requests\StoreUserRequest;
-use App\Domain\User\Requests\ListUserRequest;
-use App\Domain\User\Resources\UserResource;
 use App\Domain\User\Actions\CreateUserAction;
 use App\Domain\User\Actions\ListUsersAction;
+use App\Domain\User\Requests\ListUserRequest;
+use App\Domain\User\Requests\StoreUserRequest;
+use App\Domain\User\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -21,6 +21,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $user = $createUserAction->execute($data);
+
         return new UserResource($user);
     }
 }

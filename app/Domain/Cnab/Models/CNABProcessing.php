@@ -34,10 +34,10 @@ class CNABProcessing extends Model
     {
         return Attribute::make(
             get: fn () => match ($this->status) {
-                ProcessingStatus::PENDENTE => new PendenteState(),
-                ProcessingStatus::PROCESSANDO => new ProcessandoState(),
-                ProcessingStatus::CONCLUIDO => new ConcluidoState(),
-                ProcessingStatus::ERRO => new ErroState(),
+                ProcessingStatus::PENDENTE => new PendenteState,
+                ProcessingStatus::PROCESSANDO => new ProcessandoState,
+                ProcessingStatus::CONCLUIDO => new ConcluidoState,
+                ProcessingStatus::ERRO => new ErroState,
             }
         );
     }
@@ -46,12 +46,12 @@ class CNABProcessing extends Model
     {
         $this->state->start($this);
     }
-    
+
     public function markAsCompleted(string $cnabFilePath): void
     {
         $this->state->complete($this, $cnabFilePath);
     }
-    
+
     public function markAsFailed(string $errorMessage = ''): void
     {
         $this->state->fail($this, $errorMessage);

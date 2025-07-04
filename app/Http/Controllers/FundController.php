@@ -10,7 +10,7 @@ class FundController extends Controller
     public function index(GetAllFundAction $getAllFundAction)
     {
         $data = $getAllFundAction->execute();
-        
+
         return FundResource::collection($data);
     }
 }

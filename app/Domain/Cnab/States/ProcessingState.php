@@ -6,7 +6,6 @@ use App\Domain\Cnab\Models\CNABProcessing;
 
 interface ProcessingState
 {
-    
     public function start(CNABProcessing $processing): void;
 
     public function complete(CnabProcessing $processing, string $cnabFilePath): void;

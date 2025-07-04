@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Domain\User\Models\User;
 use App\Enums\ProfileEnum;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use App\Domain\User\Models\User;
 
 class UsersSeeder extends Seeder
 {
@@ -16,8 +15,8 @@ class UsersSeeder extends Seeder
     public function run(): void
     {
         Role::create(['name' => ProfileEnum::ADMIN->value, 'guard_name' => 'api']);
-        Role::create(['name' => ProfileEnum::USER->value , 'guard_name' => 'api']);
-        
+        Role::create(['name' => ProfileEnum::USER->value, 'guard_name' => 'api']);
+
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',

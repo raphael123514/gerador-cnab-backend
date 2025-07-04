@@ -2,7 +2,7 @@
 
 namespace App\Domain\Cnab\Enums;
 
-enum ProcessingStatus : string
+enum ProcessingStatus: string
 {
     case PENDENTE = 'pendente';
     case PROCESSANDO = 'processando';

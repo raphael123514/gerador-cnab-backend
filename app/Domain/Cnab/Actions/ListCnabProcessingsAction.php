@@ -10,8 +10,7 @@ class ListCnabProcessingsAction
     /**
      * Lista os processamentos de CNAB com filtros e paginação.
      *
-     * @param array $data Dados validados da requisição.
-     * @return LengthAwarePaginator
+     * @param  array  $data  Dados validados da requisição.
      */
     public function execute(array $data): LengthAwarePaginator
     {
@@ -36,8 +35,8 @@ class ListCnabProcessingsAction
         $page = $data['page'] ?? null;
 
         return $query->latest()->paginate(
-                perPage: $perPage,
-                page: $page
+            perPage: $perPage,
+            page: $page
         );
     }
 }

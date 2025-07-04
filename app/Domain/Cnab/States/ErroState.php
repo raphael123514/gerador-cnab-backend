@@ -2,7 +2,4 @@
 
 namespace App\Domain\Cnab\States;
 
-class ErroState
-{
-
-}
+class ErroState {}
