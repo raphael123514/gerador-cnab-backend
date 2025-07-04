@@ -15,8 +15,8 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name' => ProfileEnum::ADMIN->value]);
-        Role::create(['name' => ProfileEnum::USER->value]);
+        Role::create(['name' => ProfileEnum::ADMIN->value, 'guard_name' => 'api']);
+        Role::create(['name' => ProfileEnum::USER->value , 'guard_name' => 'api']);
         
         User::factory()->create([
             'name' => 'Test User',
