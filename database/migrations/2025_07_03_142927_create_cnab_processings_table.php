@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('original_filepath'); // Caminho para baixar o Excel
             $table->string('cnab_filepath')->nullable(); // Caminho para baixar o CNAB
             $table->string('file_sequence'); // "Sequência do Arquivo"
-            $table->enum('status', ['pendente', 'processando', 'concluído', 'erro'])->default('pendente');
+            $table->enum('status', ['pendente', 'processando', 'concluido', 'erro'])->default('pendente');
             $table->timestamps(); // created_at será a Data da solicitação
         });
     }
