@@ -1,61 +1,143 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📦 Backend - Gerador de CNAB
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é o projeto backend do Gerador de CNAB, desenvolvido com **Laravel 12**, **PHP 8.2**, e utilizando **MySQL** como banco de dados, além de **RabbitMQ**, **Redis** e **Docker** com Laravel Sail.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Tecnologias
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP 8.2
+- Laravel 12
+- MySQL 8.0
+- Redis
+- RabbitMQ
+- Laravel Sail
+- JWT Auth (`php-open-source-saver/jwt-auth`)
+- Spatie Permissions
+- Laravel Excel (`maatwebsite/excel`)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 📦 Instalação e Execução
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Clonar o repositório
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+git clone <REPOSITORIO_URL>
+cd nome-do-projeto
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Copiar e configurar o .env
 
-## Laravel Sponsors
+```bash
+cp .env.example .env
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Ajuste as variáveis conforme necessário.
 
-### Premium Partners
+### 3. Instalar as dependências
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+composer install
+```
 
-## Contributing
+### 4. Subir os containers com Sail
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+./vendor/bin/sail up -d
+```
 
-## Code of Conduct
+### 5. Rodar as migrations com seeders
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+./vendor/bin/sail artisan migrate --seed
+```
 
-## Security Vulnerabilities
+## 🐳 Serviços no Docker
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+O projeto utiliza os seguintes serviços:
+
+- Laravel App (porta 80)
+- MySQL 8 (porta 3306)
+- Redis (porta 6379)
+- RabbitMQ + painel (portas 5672 e 15672)
+
+O `docker-compose.yml` já está configurado para usar as imagens e volumes necessários.
+
+## 📚 Bibliotecas utilizadas
+
+### Produção
+
+- `laravel/framework` ^12.0
+- `maatwebsite/excel` ^3.1
+- `php-open-source-saver/jwt-auth` ^2.8
+- `spatie/laravel-permission` ^6.20
+- `vladimir-yuldashev/laravel-queue-rabbitmq` ^14.2
+- `laravel/sanctum` ^4.0
+
+### Desenvolvimento
+
+- `laravel/sail` ^1.43
+- `laravel/pint` ^1.13
+- `fakerphp/faker` ^1.23
+- `phpunit/phpunit` ^11.5.3
+
+## 🔐 Autenticação
+
+O sistema usa **JWT** para autenticação via Sanctum e JWT Auth.
+
+### Rotas públicas:
+
+- `POST /login` - Realiza login (retorna token)
+- `POST /logout` - Realiza logout (requer token)
+
+### Rotas protegidas (auth:api)
+
+- `GET /user` - Retorna usuário autenticado
+- `GET /funds` - Lista de fundos
+
+### CNAB
+
+- `GET /cnab` - Lista os CNABs
+- `GET /cnab/{processing}/download/{type}` - Download do arquivo (type: `excel` ou `cnab`)
+
+### Área Admin (somente usuários com perfil ADMIN)
+
+- `POST /admin/cnab/upload` - Upload de arquivos CNAB
+- `apiResource /admin/users` - CRUD de usuários
+
+## 📥 Exemplo de Requisição Autenticada
+
+```http
+POST /login
+Content-Type: application/json
+
+{
+  "email": "usuario@teste.com",
+  "password": "senha123"
+}
+```
+
+Resposta:
+
+```json
+{
+  "access_token": "eyJ0eXAiOiJK...",
+  "token_type": "bearer",
+  "expires_in": 3600
+}
+```
+
+Use o token retornado nas próximas requisições:
+
+```http
+Authorization: Bearer <access_token>
+```
+
+
 
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
