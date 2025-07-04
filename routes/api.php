@@ -19,18 +19,20 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('funds', [FundController::class, 'index']);
 
-    Route::middleware([RoleMiddleware::class.':'.ProfileEnum::ADMIN->value])->prefix('admin')->group(function () {
-        Route::apiResource('users', UserController::class);
-        
-        Route::controller(CNABController::class)->prefix('cnab')->group(function () {
-        
-            Route::get('/', 'index');
-            
-            Route::post('/upload', 'upload');
-            
-            Route::get('/{processing}/download/{type}', 'download')
-                ->where('type', 'excel|cnab');
-                
-        });
+    Route::controller(CNABController::class)->prefix('/cnab')->group(function () {
+        Route::get('/', 'index');
+        Route::get('/{processing}/download/{type}', 'download')
+             ->where('type', 'excel|cnab');
     });
+
+    Route::middleware([RoleMiddleware::class . ':' . ProfileEnum::ADMIN->value])
+        ->prefix('admin')
+        ->group(function () {
+            
+            Route::apiResource('users', UserController::class);
+            
+            Route::controller(CNABController::class)->prefix('cnab')->group(function () {
+                Route::post('/upload', 'upload');
+            });
+        });
 });
